@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/BOGOmazing/public/static/css/main.ff7e075d.css",
+    "main.js": "/BOGOmazing/public/static/js/main.e8e4dc4d.js",
+    "static/media/Slide-7.jpg": "/BOGOmazing/public/static/media/Slide-7.9421313f3a072cb49fb0.jpg",
+    "static/media/Slide-1.jpg": "/BOGOmazing/public/static/media/Slide-1.c1088b37e97bf0708ca0.jpg",
+    "static/media/Slide-4.jpg": "/BOGOmazing/public/static/media/Slide-4.4c56068ec38060beb6bf.jpg",
+    "static/media/Slide-5.jpg": "/BOGOmazing/public/static/media/Slide-5.eeffde649641ed7ff2ac.jpg",
+    "static/media/Slide-2.jpg": "/BOGOmazing/public/static/media/Slide-2.92c2a82de208458da158.jpg",
+    "static/media/Slide-3.jpg": "/BOGOmazing/public/static/media/Slide-3.3b9e41e4490d67ed45a4.jpg",
+    "static/media/logo.png": "/BOGOmazing/public/static/media/logo.84342ab563fead99dfd6.png",
+    "static/media/Slide-6.jpg": "/BOGOmazing/public/static/media/Slide-6.035588d3a8a3c6c38af7.jpg",
+    "static/media/6.png": "/BOGOmazing/public/static/media/6.17eb66637ce713babb87.png",
+    "static/media/1.jpg": "/BOGOmazing/public/static/media/1.f624ade122ae20814a44.jpg",
+    "static/media/404image.png": "/BOGOmazing/public/static/media/404image.c276f8aa5757b2936276.png",
+    "static/media/background.jpg": "/BOGOmazing/public/static/media/background.d5f048516545a80fe4de.jpg",
+    "index.html": "/BOGOmazing/public/index.html",
+    "main.ff7e075d.css.map": "/BOGOmazing/public/static/css/main.ff7e075d.css.map",
+    "main.e8e4dc4d.js.map": "/BOGOmazing/public/static/js/main.e8e4dc4d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ff7e075d.css",
+    "static/js/main.e8e4dc4d.js"
+  ]
+}
