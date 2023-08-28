@@ -8,7 +8,6 @@ import Image3 from '../../Images/Slide-4.jpg';
 import Image4 from '../../Images/Slide-5.jpg';
 import Image5 from '../../Images/Slide-6.jpg';
 import Image6 from '../../Images/Slide-7.jpg';
-import {Link} from 'react-router-dom';
 
 
 
@@ -38,35 +37,32 @@ const ImageCarousel = () => {
          <area shape="rect" coords="724,761,731,748" title="Ractangle" href="/Signup"/>       
          </map>  */}
     <Carousel>
-      <Carousel.Item interval={2000}>
-      <Link to={process.env.REACT_APP_BASE_URL+"Signup"}>
+      <Carousel.Item interval={1000}>
         <img
           className="d-block w-100"
           src={Image}
           alt="First slide" 
         />
-        </Link>
          {/* useMap='map' <map name='#map'>
             <area alt="" title="" href="/Signup" shape="rect" coords="327,676,731,770" />
         </map>  */}
       </Carousel.Item>
-      <Carousel.Item interval={2000}>
-      <Link to={process.env.REACT_APP_BASE_URL+"Signup"}>
+      <Carousel.Item interval={500}>
         <img
           className="d-block w-100"
           src={Image1}
           alt="Second slide"
         />
-      </Link>
+    
       </Carousel.Item>
-      <Carousel.Item interval={2000}>
+      <Carousel.Item interval={500}>
         <img
           className="d-block w-100"
           src={Image2}
           alt="Third slide"
         />
       </Carousel.Item>
-      <Carousel.Item interval={2000}>
+      <Carousel.Item interval={500}>
         <img
           className="d-block w-100"
           src={Image3}
@@ -74,29 +70,26 @@ const ImageCarousel = () => {
         />
         <a></a>
       </Carousel.Item>
-      <Carousel.Item interval={2000}>
-    
+      <Carousel.Item interval={500}>
         <img
           className="d-block w-100"
           src={Image4}
           alt="Third slide"
         />
       </Carousel.Item>
-      <Carousel.Item interval={2000}>
+      <Carousel.Item interval={500}>
         <img
           className="d-block w-100"
           src={Image5}
           alt="Third slide"
         />
       </Carousel.Item>
-      <Carousel.Item interval={2000}>
-        <Link to={process.env.REACT_APP_BASE_URL+"Signup"}>
+      <Carousel.Item interval={500}>
         <img
           className="d-block w-100"
           src={Image6}
           alt="Third slide"
         />
-        </Link>
       </Carousel.Item>
     </Carousel>
     </>

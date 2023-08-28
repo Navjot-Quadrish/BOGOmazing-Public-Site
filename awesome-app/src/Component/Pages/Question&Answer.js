@@ -1,23 +1,15 @@
-
 import React from 'react'
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-
 const QuestionAnswer = () => {
-
     return (
-        <div style={{
-            fontfamily: "Helvetica Neue,Helvetica,Arial,sans-serif !important",
-            lineHeight: "1.42857143 !important",
-            color: "#000 !important",
-            backgroundColor: "#fff !important",
-            padding: "1rem"
-        }}>
-            <Row className='textsize'>
+        <Container>
+            <Row>
                 <div className="acc">
                     <p className="question text-color mb-1 text-capitalize">How Much Is My Credit Card Charged Every Month?</p><hr
                         style={{
-                            margin: "0",
+                            margin:"0",
                             background: "red",
                             height: "1px",
                             border: "none",
@@ -26,55 +18,55 @@ const QuestionAnswer = () => {
                     <p className="answer text-capitalize">$29.95</p>
 
                 </div>
-                <div className="acc">
-                    <p className="question text-color mb-1 text-capitalize">Can I cancel anytime?<hr
-                        style={{
-                            margin: "0",
-                            background: "red",
-                            height: "1px",
-                            border: "none",
-                        }} /></p>
-                    <p className="answer text-capitalize">YES, there is no contract and you can cancel anytime.</p>
+                    <div className="acc">
+                        <p className="question text-color mb-1 text-capitalize">Can I cancel anytime?<hr
+                            style={{
+                                margin:"0",
+                                background: "red",
+                                height: "1px",
+                                border: "none",
+                            }} /></p>
+                        <p className="answer text-capitalize">YES, there is no contract and you can cancel anytime.</p>
 
-                </div>
-                <div className="acc">
-                    <p className="question text-color mb-1 text-capitalize">How Do Charges Appear On My Credit Card Statement?</p><hr
-                        style={{
-                            margin: "0",
-                            background: "red",
-                            height: "1px",
-                            border: "none",
-                        }} />
-                    <p className="answer text-capitalize"><a>BOGOmazing.com</a></p>
+                    </div>
+                    <div className="acc">
+                        <p className="question text-color mb-1 text-capitalize">How Do Charges Appear On My Credit Card Statement?</p><hr
+                            style={{
+                                margin:"0",
+                                background: "red",
+                                height: "1px",
+                                border: "none",
+                            }} />
+                        <p className="answer text-capitalize"><a>BOGOmazing.com</a></p>
 
-                </div>
+                    </div>
 
-                <div className="acc">
-                    <p className="question text-color mb-1 text-capitalize">How much do I earn per BOGOmazing App Referral?<hr
-                        style={{
-                            margin: "0",
-                            background: "red",
-                            height: "1px",
-                            border: "none",
-                        }} /></p>
-                    <p className="answer text-capitalize">You earn $29.95 billing credit per referral that is applied to your account 75 days from the day your referral signs up for BOGOmazing.  Thank You for any referrals!!!</p>
+                    <div className="acc">
+                        <p className="question text-color mb-1 text-capitalize">How much do I earn per BOGOmazing App Referral?<hr
+                            style={{
+                                margin:"0",
+                                background: "red",
+                                height: "1px",
+                                border: "none",
+                            }} /></p>
+                        <p className="answer text-capitalize">You earn $29.95 billing credit per referral that is applied to your account 75 days from the day your referral signs up for BOGOmazing.  Thank You for any referrals!!!</p>
 
-                </div>
-                <div className="acc">
-                    <p className="question text-color mb-1 text-capitalize">I am not able to get restaurants to sort by distance?</p><hr
-                        style={{
-                            margin: "0",
-                            background: "red",
-                            height: "1px",
-                            border: "none",
-                        }} />
+                    </div>
+                    <div className="acc">
+                        <p className="question text-color mb-1 text-capitalize">I am not able to get restaurants to sort by distance?</p><hr
+                            style={{
+                                margin:"0",
+                                background: "red",
+                                height: "1px",
+                                border: "none",
+                            }} />
                     <p className="answer text-capitalize">Please be sure you have permissions allowed for My Location. You can access permissions through your Settings / Apps / Permissions / BOGOmazing.</p>
 
                 </div>
                 <div className="acc">
                     <p className="question text-color mb-1 text-capitalize">Is there a limit how many referral credits I can earn?</p><hr
                         style={{
-                            margin: "0",
+                            margin:"0",
                             background: "red",
                             height: "1px",
                             border: "none",
@@ -85,7 +77,7 @@ const QuestionAnswer = () => {
                 <div className="acc">
                     <p className="question text-color mb-1 text-capitalize">What do I do if there is an incorrect charge on my credit card?</p><hr
                         style={{
-                            margin: "0",
+                            margin:"0",
                             background: "red",
                             height: "1px",
                             border: "none",
@@ -97,7 +89,7 @@ const QuestionAnswer = () => {
                 <div className="acc">
                     <p className="question text-color mb-1 text-capitalize">If I have a problem redeeming any of the offers at a participating restaurant, can I email BOGOmazing App to communicate the problem?</p><hr
                         style={{
-                            margin: "0",
+                            margin:"0",
                             background: "red",
                             height: "1px",
                             border: "none",
@@ -106,9 +98,8 @@ const QuestionAnswer = () => {
 
                 </div>
             </Row>
-        </div>
+        </Container>
     )
-
 }
 
 export default QuestionAnswer;

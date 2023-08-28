@@ -5,13 +5,8 @@ const PrivacyPolicy = () => {
     return (
    <div>
     <br/>
-    <div style={{
-    fontfamily: "Helvetica Neue,Helvetica,Arial,sans-serif !important",
-    fontSize: "14px !important",
-    lineHeight: "1.42857143 !important",
-    color:  "#000 !important",
-    backgroundColor: "#fff !important",
-    padding:"1rem"}}>
+  
+    <Container>
         <Row>
          
                 <p className="answer">Respect for your privacy is coded into our DNA. Since we started BOGOmazing  App, we’ve aspired to build our Services with a set of strong privacy principles in mind.<br />
@@ -70,9 +65,9 @@ const PrivacyPolicy = () => {
                         United States of America</p>
 	
 			</Row>
-      		
+            </Container>  		
 		
-		</div>
+		
 
     </div>
   )

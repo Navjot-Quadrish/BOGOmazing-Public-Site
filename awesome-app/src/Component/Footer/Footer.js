@@ -1,5 +1,6 @@
 import React from 'react';
-import { MDBFooter, MDBContainer, MDBRow, MDBCol} from 'mdb-react-ui-kit';
+import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
+import Fonts from '../../Fonts/Font';
 import LogoImage from '../../Images/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGooglePlusG, faTwitter, faPinterestP, faVimeoV } from '@fortawesome/free-brands-svg-icons';
@@ -13,8 +14,7 @@ export default function App() {
 
 
   return (
-    <>
-  
+
     <MDBFooter bgColor='light' className='text-center text-lg-start'>
       <div className='container'>
         <section className='d-flex justify-content-center justify-content-lg-between p-4'>
@@ -38,40 +38,36 @@ export default function App() {
                   <div className="wrapper">
                     <div className='icon'>
                       
-                          
-                            <Link to="">
-                                <span>
-                                <FontAwesomeIcon icon={faFacebookF} className="" size={'xs'} />
-                                </span>
-                            </Link>
-                            <Link to="">
-                                <span>
-                                <FontAwesomeIcon icon={faGooglePlusG} className="" size={'xs'} />
-                                </span>
-                            </Link>
-                            <Link to="">
-                                <span>
-                                <FontAwesomeIcon icon={faTwitter} className="" size={'xs'} />
-                                </span>
-                            </Link>
-                      
-                     
-                            <Link to="">
-                              <span>
-                                <FontAwesomeIcon icon={faPinterestP} className="" size={'xs'} />
-                              </span>
-                            </Link>
-                            <Link to="">
-                              <span>
-                                <FontAwesomeIcon icon={faVimeoV} className="" size={'xs'} />
-                              </span>
-                            </Link>
-                            <Link to="">
-                              <span>
-                                <FontAwesomeIcon icon={faMap} className="" size={'xs'} />
-                              </span>
-                            </Link>
-                      
+                    <Link to="">
+                      <span>
+                      <FontAwesomeIcon icon={faFacebookF} className="" size={'1x'} />
+                      </span>
+                    </Link>
+                    <Link to="">
+                      <span>
+                      <FontAwesomeIcon icon={faGooglePlusG} className="" size={'1x'} />
+                      </span>
+                    </Link>
+                    <Link to="">
+                      <span>
+                      <FontAwesomeIcon icon={faTwitter} className="" size={'1x'} />
+                      </span>
+                    </Link>
+                    <Link to="">
+                    <span>
+                      <FontAwesomeIcon icon={faPinterestP} className="" size={'1x'} />
+                      </span>
+                    </Link>
+                    <Link to="">
+                    <span>
+                      <FontAwesomeIcon icon={faVimeoV} className="" size={'1x'} />
+                    </span>
+                    </Link>
+                    <Link to="">
+                    <span>
+                      <FontAwesomeIcon icon={faMap} className="" size={'1x'} />
+                    </span>
+                    </Link>
                     </div>
                 </div>
               </div>
@@ -105,7 +101,5 @@ export default function App() {
       </div>
     </div>
     </MDBFooter >
-   
-    </>
   );
 }

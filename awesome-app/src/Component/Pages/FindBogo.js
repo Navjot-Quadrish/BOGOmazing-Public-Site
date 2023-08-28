@@ -5,20 +5,16 @@ import Row from 'react-bootstrap/Row';
 import React, { useEffect,useState } from 'react';
 import { Link, useParams} from 'react-router-dom';
 import {ToastContainer,toast} from 'react-toastify';
-import InputMask from 'react-input-mask';
 import 'react-toastify/dist/ReactToastify.css';
 
 function FindBogo() {
   const [validated, setValidated] = useState(false);
   const [users, setUser] = useState([]);
-  const [referral, setReferral] = useState("");
-  const [staffreferral, setstaffreferral] = useState('');
-  const [code, setCode] = useState("");
-  const [code1, setCode1] = useState("");
-  const [code2, setCode2] = useState("");
-  const [code3, setCode3] = useState("");
-  const [code4, setCode4] = useState("");
-  const [code5, setCode5] = useState("");
+  const [referral, setReferral] = useState();
+  //const [staff, setStaff] = useState('');
+  const [showContent, setShowContent] = useState(false);
+  const [showStaffContent, setStaffContent] = useState(false);
+
   const { token } = useParams();
 
   useEffect(() => {
@@ -31,40 +27,29 @@ function FindBogo() {
   }, [])
 
   const handleChange = (event) => {
-   console.log(event.target.value) ;
-    if (event.target.value=="1") {
-    console.log("a")
-    setstaffreferral("ref");
-      console.log(referral)
+    if (event.target.value=="1" || event.target.value=="7" ) {
+      setReferral("referral");
     }
-    else{
-      console.log("b");
-      console.log(referral)
-      setstaffreferral("");
-
-    }
-    // if (event.target.value=="1") {
-    //   setReferral("referral");
-    // }
-    // else{
-    //   setReferral([]);
-
-    // }
-    // if (event.target.value=="7"){
-    //   setReferral("referral");
-    // }
-    // else{
-    //   setReferral([]);
-
-    // }
-
-    if (event.target.value=="2" || event.target.value=="7") {
+    if (event.target.value=="2" ) {
       setReferral("staff");
-    }
-    else{
-      setReferral([]);
+     // setText("Please Enter In The Number Of The Restaurant Staff Person <br /> Who Referred You So They Can Get Credit For Referring You");
+      setShowContent(false); // Show content only when a value is selected
+      setStaffContent(true);
+    } 
 
+    if (event.target.value=="1"){
+      //setText("Please Enter In The Number Of The BOGOmazing Member <br /> Who Referred You So They Can Earn A FREE Month With BOGOmazing");
+      setShowContent(true);
+      setStaffContent(false);
     }
+
+    
+    if (event.target.value=="3" || event.target.value=="4" || event.target.value=="5" || event.target.value=="6"){
+      //setText(""); 
+      setShowContent(false);
+      setStaffContent(false);
+    }
+
 
   };
 
@@ -113,77 +98,70 @@ function FindBogo() {
 
       <div className="app">
       <ToastContainer />
-    
-        <div className="login-form text-center w-50">
+        <br />
+        <br />
+        <div className="login-form text-center">
           <div className="title text-center p-4 mb-4 fs-4">How Did You Find Out About BOGOmazing</div>
+          
           <div className='container p-4'>
+              {showContent && (
+              <>
+                <p>Please Enter In The Number Of The BOGOmazing Member </p>
+                <p>Who Referred You So They Can Earn A FREE Month With BOGOmazing</p>
+                <br />
+              </>
+            )}
+              {showStaffContent && (
+              <>
+                <p>Please Enter In The Number Of The Restaurant Staff Person</p>
+                <p>Who Referred You So They Can Get Credit For Referring You</p>
+                <br />
+              </>
+            )}
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridState">
 
                   <Form.Select name="findBogoID" required type="select" onChange={handleChange}>
-                    <option value="">Select Find BOGO Type</option>
+                    <option disabled selected hidden>Please Select How You Found Out About BOGOmazing</option>
                       { 
                         users.map((item,i)=>
                             <option value={item.id}>{item.name}</option>
                         
                       )}
                   </Form.Select>
-                  <Form.Control.Feedback className='text-left' type="invalid">
+                  <Form.Control.Feedback type="invalid">
                     Please Select Type
                   </Form.Control.Feedback>
                 </Form.Group>
 
               </Row>
               {(() => {
-                  console.log(referral);
-                if (staffreferral=="ref") {
+         
+                if (referral=="referral") {
                   return <Row className="mb-3 align-items-center justify-content-center text-center" >
                   <Form.Group as={Col} md="2">
-                  <InputMask required className='form-control text-center'
-                        mask='99'
-                        placeholder="00" name="code1"   onChange={(e) => setCode(e.target.value)} value={code}>
-                      </InputMask>
-                    
+                    <Form.Control type="text" className='text-center' name="code1" placeholder="00" required />
                    </Form.Group>
                   <Form.Group as={Col} md="2">
-                  <InputMask required className='form-control text-center'
-                        mask='999'
-                        placeholder="000" name="code2"   onChange={(e) => setCode1(e.target.value)} value={code1}>
-                      </InputMask>
+                    <Form.Control type="text" className='text-center' name="code2" placeholder="000" required />
                   </Form.Group>
-                  <Form.Group as={Col} md="3">
-                  <InputMask required className='form-control text-center'
-                        mask='99999'
-                        placeholder="00000" name="code3"   onChange={(e) => setCode2(e.target.value)} value={code2}>
-                      </InputMask>
+                  <Form.Group as={Col} md="2">
+                    <Form.Control type="text" className='text-center' name="code3" placeholder="00000" required />
                   </Form.Group>
                 </Row>;
                 }else
                 if (referral=="staff") {
-                  console.log(referral);
                   return <Row className="mb-3 align-items-center justify-content-center text-center">
-                  <Form.Group as={Col} md="3">
-                  <InputMask required className='form-control text-center'
-                        mask='99999'
-                        placeholder="00000" name="code1"   onChange={(e) => setCode3(e.target.value)} value={code3}>
-                      </InputMask>
-                  
+                  <Form.Group as={Col} md="2">
+                      <Form.Control type="text" className='text-center' name="code3" placeholder="00000" required />
                     </Form.Group>
                     <Form.Group as={Col} md="2">
-                    <InputMask required className='form-control text-center'
-                        mask='99'
-                        placeholder="00" name="code2" onChange={(e) => setCode4(e.target.value)} value={code4}>
-                      </InputMask>
-              
+                      <Form.Control type="text" className='text-center' name="code1" placeholder="00" required />
                      </Form.Group>
     
                     <Form.Group as={Col} md="2">
-                    <InputMask required className='form-control text-center'
-                        mask='999'
-                        placeholder="000" name="code3"   onChange={(e) => setCode5(e.target.value)} value={code5}>
-                      </InputMask>
-                   
+                      <Form.Control type="text" className='text-center' name="code2" placeholder="000" required />
                     </Form.Group>
                   </Row>;
                 }else{
@@ -195,12 +173,12 @@ function FindBogo() {
 
              
               <Button variant="danger" size="lg" type="submit">
-                Click Here To Go To  Payment Screen
+              Click Here To Select
               </Button>
             </Form>
           </div>
         </div>
-
+        <br />
         <br />
       </div>
 

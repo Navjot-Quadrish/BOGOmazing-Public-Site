@@ -8,9 +8,23 @@ import DesignImage from '../../Images/btm-style.png';
 import SubHeader from '../Header/SubHeader';
 import Card from './Card';
 import InputMask from 'react-input-mask';
-import {ToastContainer,toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+// function isUSAZipCode(str) 
+// {
+//   return /^\d{5}(-\d{4})?$/.test(str);
+// }
+// function validateInput() 
+// {
+//   console.log("validateInput");
+//   let zipCode = document.getElementById("zipCode").value;
+//   let message = "";
+//   if (isUSAZipCode(zipCode)) 
+//   {
+//     message = "Valid Zip Code";
+//   } else {
+//     message = "Invalid Zip Code";
+//   }
+//   document.getElementById("msg").innerHTML = message;
+// }
 
 function Search() {
   const [validated, setValidated] = useState(false);
@@ -24,7 +38,8 @@ function Search() {
   useEffect(() => {
     fetch(process.env.REACT_APP_API_URL+'states').then((result) => {
       result.json().then((resp) => {
-   
+        console.log(resp);
+        // console.warn(resp)
         setUser(resp)
       })
     })
@@ -33,7 +48,7 @@ function Search() {
   let stateid =""
   const handleChange = (event) => {
     // 👇 Get input value from "event"
-   
+    //  setMessage(event.target.value);
     stateid = event.target.value;
    
     setState(stateid);
@@ -47,7 +62,8 @@ function Search() {
     })
       .then((result) => {
         result.json().then((resp) => {
-    
+       
+          console.warn(resp)
           setCity(resp)
 
         })
@@ -68,12 +84,12 @@ function Search() {
     }else{
 
       let formData = new FormData();
-
+      // console.log(formData);
       //
       let zipcode="";
       if(zip==false){
         zipcode ="";
-      }
+      } 
       else{
         zipcode=zip;
       }
@@ -89,19 +105,13 @@ function Search() {
       body: formData, // <-- Post parameters
     })
       .then((result) => {
-       
+        console.log(result);
         result.json().then((resp) => {
-       
-
-          if(resp.status=="error"){
-            toast.error(resp.message);
-            setRestaurants([])
-          }
-          else{
-      
-            setRestaurants(resp.data);
-          }
-     
+          
+          setRestaurants(resp.data);
+        
+          //console.warn(resp)
+          //setCity(resp)
         })
       })
       .catch((error) => {
@@ -111,11 +121,9 @@ function Search() {
 
     setValidated(true);
   };
-  
 
   return (
     <>
-     <ToastContainer />
       <SubHeader/>
       <Container>
         <h1>To See If BOGOmazing App Is In Your City, Please Check Below</h1>
@@ -168,7 +176,9 @@ function Search() {
                     mask='99999' 
                     name="zipcode" onChange={(e) => setZipcode(e.target.value)}>
                   </InputMask>
-               
+                  {/* <Form.Control.Feedback type="invalid">Please Enter Valid Zipcode</Form.Control.Feedback> */}
+              {/* <Form.Control type="text" placeholder="" onChange={(e) => setZipcode(e.target.value)}/> */}
+              
             </Form.Group>
           </Row>
           <br />
@@ -190,15 +200,15 @@ function Search() {
         <br />
         <br />
         <Row xs={1} md={3} className="g-4">
-
+       
           {restaurants.map((item, index) =>
-           
+          
              <Col>
               <Card key={index} item={item}>
               </Card>
              </Col>
               )}
-         
+       
         </Row>
       </Container>
       <br />

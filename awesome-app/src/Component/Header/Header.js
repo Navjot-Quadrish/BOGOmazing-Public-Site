@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
+//import Button from 'react-bootstrap/Button';
 import {Link} from 'react-router-dom';
 
  const List = (props) => {
@@ -38,7 +38,7 @@ import {Link} from 'react-router-dom';
         <Navbar.Collapse id="basic-navbar-nav">
         <Col className='col-md-2'></Col>
             <Col className='col-md-8'>
-              <Nav className="me-auto fw-bolder fs-6 buttonsize">
+              <Nav className="me-auto fw-bolder fs-6">
                 <Nav.Link className='navbar-customlinks text-decoration-none' href={process.env.REACT_APP_BASE_URL+"#BogomazingApp"}>ABOUT BOGOMAZING APP</Nav.Link>
                 <Nav.Link className='navbar-customlinks' href={process.env.REACT_APP_BASE_URL+"#Q-A"} >Q&A</Nav.Link>
                 <Link className='navbar-customlinks text-decoration-none' to={process.env.REACT_APP_BASE_URL+"Signup"}>SIGNUP</Link>

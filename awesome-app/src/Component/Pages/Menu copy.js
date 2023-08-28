@@ -7,11 +7,9 @@ import DesignImage from '../../Images/btm-style.png';
 import { useParams,Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck,faTimes} from '@fortawesome/free-solid-svg-icons';
-import {ToastContainer,toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import ErrorBoundary from "./ErrorBoundary";
+ 
 function Menu() {
-
   const [Menus, setMenus] = useState([]); 
   const [menu, setMenu] = useState([]); 
 
@@ -19,19 +17,27 @@ function Menu() {
   const { id } = useParams();
   useEffect(() => {
 
-    fetch(process.env.REACT_APP_API_URL+`getAllBogoMenus?restid=${id}`)
+    fetch(`https://qd-fintech.com/BOGOmazing/mobile-api/api/getAllBogoMenus?restid=${id}`)
        .then((res) => res.json())
        .then((data) => {
           if(data.status=="error"){
-            toast.error("No Menu Items Found");
+            setMenu()
             const timeout = setTimeout(() => {
-             // toast.error("hello");
+             
             window.location.replace(process.env.REACT_APP_BASE_URL+"SearchRestaurant");
         
-          }, 3000);
-          
+         
+           document.getElementById('box')
+        
+          }, 10000);
+        
           return () => clearTimeout(timeout);
       
+          }
+          else{
+            document.getElementById('box').style.display = 'none'
+            // const element = document.getElementById("box");
+            // element.style.display= "none";
           }
          
           setMenus(data.data);
@@ -42,11 +48,22 @@ function Menu() {
        });
  }, []);
 
+    /*const [validated, setValidated] = useState(false);
+  
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+  };*/
 
   return (
     <>
-  
-    <ToastContainer />
+    <div className=''>
+  <h3 id='box'><Alert variant="success"><Alert.Heading>No Record Found</Alert.Heading></Alert></h3></div>
     <SubHeader />
     <h1 className='text-center fw-bolder'>SEARCH RESULTS</h1>
         <div className="hr-theme-slash-2">

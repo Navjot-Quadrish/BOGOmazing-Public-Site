@@ -18,16 +18,16 @@ const Card = ({ item }) => {
    
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
-
+    {console.log(process.env.REACT_APP_BASE_URL+"Menu/"+item.dbsno)}
     return (
         
         <div className='card'>
-            <img src={(item.logo === null) ? Logo : item.logo} />
+            <img src={(item.logo === null) ? Logo : item.logo}  width="354" height="300"/>
             <div className='position-relative'>
 
                 <div className="position-absolute bottom-0 p-3">
                     <Col xs={12} sm={4} md={12}>
-                        <Link to={process.env.REACT_APP_BASE_URL+"Menu/"+item.dbsno} className='btn rounded-pill btn-color btn-danger buttonsize'><FontAwesomeIcon icon={faMessage} />&nbsp;Menu Items Available</Link>
+                        <Link to={process.env.REACT_APP_BASE_URL+"Menu/"+item.dbsno} className='btn rounded-pill btn-color btn-danger'><FontAwesomeIcon icon={faMessage} />&nbsp;Menu Items Available</Link>
                     </Col>
                 </div>
             </div>

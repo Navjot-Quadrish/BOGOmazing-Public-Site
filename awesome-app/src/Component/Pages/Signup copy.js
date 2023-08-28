@@ -1,4 +1,7 @@
-import {Button,Container,Col,Form,Row} from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 import React, { useEffect, useState } from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
 //import DatePicker from "react-datepicker";
@@ -6,60 +9,33 @@ import "../../../node_modules/react-datepicker/dist/react-datepicker.min.css";
 import InputMask from 'react-input-mask';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Formik } from "formik";
-import * as yup from 'yup';
-import CustomDatePicker from './CustomDatePicker';
 
-import {
-  useSearchParams
- 
- } from "react-router-dom";
- 
-const schema = yup.object().shape({
-  fname: yup.string().required("Please Enter First Name"),
-  lname: yup.string().required("Please Enter Last Name"),
-  state: yup.string().required("Please Select State"),
-  city: yup.string().required("Please Select City"),
-  email:yup.string().email("Please Enter A Valid Email Address.").required("Please Enter Email"),
-  confirmemail: yup.string().email("Please Enter A Valid Email Address.").required("Please Enter Confirm Email").test("confirm-email-test","Email Does't Match",
-  function(value) {return value === this.parent.email},
-  ),
-  
-  password: yup.string().min(8, "Please Enter Atleast 8 Character").required("Password is Required"),
-  confirmPassword: yup.string().required("Confirm Password is Required").test("confirm-password-test","Password Does't Match",
-  function(value){ {return value === this.parent.password}
 
- }),
-  // state: yup.string().required(),
 
-  terms: yup.bool().required().oneOf([true], 'Terms must be accepted'),
-});
 function Signup() {
- // const queryParameters = new useSearchParams(window.location.search)
-  const [searchParams, setSearchParams] = useSearchParams(window.location.search);
-  const type = searchParams.get("type");
-  console.log(type);
-
-  const [dob, setDob] = useState(null);
-
-  const handleDateChange = (date) => {
-    setDob(date);
-  };
-  var hex = "30342d3031302d3030303034", // ASCII HEX: 37="7", 57="W", 71="q"
-    bytes = [],
-    str;
-
-for(var i=0; i< hex.length-1; i+=2){
-    bytes.push(parseInt(hex.slice(i, 2), 16));
-}
-
-str = String.fromCharCode.apply(String, bytes);
-console.log(str);
   const [validated, setValidated] = useState(false);
   const [users, setUser] = useState([]);
   const [city, setCity] = useState([]);
+  const [passwordError, setPasswordErr] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [passwordInput, setPasswordInput] = useState({
+    password: '',
+    confirmPassword: ''
+  })
+  // const [input, setInput] = useState({
+  //   email: '',
+  //   confirmemail:'',
+  //   password: '',
+  //   confirmpassword: ''
+  // });
 
-  
+  // const [error, setError] = useState({
+  //   email: '',
+  //   confirmemail:'',
+  //   password: '',
+  //   confirmpassword: ''
+  // })
+
   useEffect(() => {
     fetch(process.env.REACT_APP_API_URL + 'states').then((result) => {
       result.json().then((resp) => {
@@ -69,7 +45,7 @@ console.log(str);
     })
   }, [])
   let stateid = ""
-  const handleStateChange = (event) => {
+  const handleChange = (event) => {
 
     stateid = event.target.value;
 
@@ -91,10 +67,132 @@ console.log(str);
         });
     }
   };
+  const handlePasswordChange =(evnt)=>{
+    const passwordInputValue = evnt.target.value.trim();
+    console.log(passwordInputValue);
+    const passwordInputFieldName = evnt.target.name;
+    const NewPasswordInput = {...passwordInput,[passwordInputFieldName]:passwordInputValue}
+    console.log(NewPasswordInput);
+    setPasswordInput(NewPasswordInput);
+    
+}
+const handleValidation= (evnt)=>{
+  const passwordInputValue = evnt.target.value.trim();
+  console.log(passwordInputValue);
+  const passwordInputFieldName = evnt.target.name;
+  console.log(passwordInputFieldName);
+      //for password 
+if(passwordInputFieldName==='password'){
+  const uppercaseRegExp   = /(?=.*?[A-Z])/;
+  const lowercaseRegExp   = /(?=.*?[a-z])/;
+  const digitsRegExp      = /(?=.*?[0-9])/;
+  const specialCharRegExp = /(?=.*?[#?!@$%^&*-])/;
+  const minLengthRegExp   = /.{8,}/;
+  const passwordLength =      passwordInputValue.length;
 
-  const handleSubmit1 = (event) => {
+  const uppercasePassword =   uppercaseRegExp.test(passwordInputValue);
+  console.log(uppercasePassword);
+  const lowercasePassword =   lowercaseRegExp.test(passwordInputValue);
+  const digitsPassword =      digitsRegExp.test(passwordInputValue);
+  const specialCharPassword = specialCharRegExp.test(passwordInputValue);
+  const minLengthPassword =   minLengthRegExp.test(passwordInputValue);
+  let errMsg ="";
+  if(passwordLength===0){
+          errMsg="Password is empty";
+  }else if(!uppercasePassword){
+          errMsg="At least one Uppercase";
+  }else if(!lowercasePassword){
+          errMsg="At least one Lowercase";
+  }else if(!digitsPassword){
+          errMsg="At least one digit";
+  }else if(!specialCharPassword){
+          errMsg="At least one Special Characters";
+  }else if(!minLengthPassword){
+          errMsg="At least minumum 8 characters";
+  }else{
+      errMsg="";
+  }
+
+  setPasswordErr(errMsg);
+  }
+  // for confirm password
+  if(passwordInputFieldName=== "confirmPassword" || (passwordInputFieldName==="password" && passwordInput.confirmPassword.length>0) ){
+          
+      if(passwordInput.confirmPassword!==passwordInput.password)
+      {
+      setConfirmPasswordError("Confirm password is not matched");
+      }else{
+      setConfirmPasswordError("");
+      }
+      
+  }
+}
+  // const onInputChange = e => {
+  //   const { name, value } = e.target;
+  //   setInput(prev => ({
+  //     ...prev,
+  //     [name]: value
+  //   }));
+  //   validateInput(e);
+  // }
+  // const validateInput = e => {
+  //   let { name, value } = e.target;
+  //   setError(prev => {
+  //     const stateObj = { ...prev, [name]: "" };
+  //     console.log(value);
+  //     console.log(input.confirmemail)
+  //     console.log(input.email)
+  //     console.log(input.confirmemail && value !== input.confirmemail);
+
+  //     switch (name) {
+  //       case "email":
+  //         if (!value) {
+  //           stateObj[name] = "Please enter Email.";
+  //         }else if (input.confirmemail && input.email !== input.confirmemail) {
+  //           stateObj["confirmemail"] = "Email and Confirm Email does not match.";
+  //         } else {
+  //           stateObj["confirmemail"] = input.confirmemail ? "" : error.confirmemail;
+  //         }
+  //         break;
+  //       case "confirmemail":
+  //         if (!value) {
+  //           stateObj[name] = "Please enter Confirm Email.";
+  //         }else if (input.email && input.confirmemail !== input.email) {
+  //           stateObj["email"] = "Password and Confirm Email does not match.";
+  //         } else {
+  //           stateObj["email"] = input.email ? "" : error.email;
+  //         }
+  //         break;
+  //       case "password":
+  //         if (!value) {
+  //           stateObj[name] = "Please enter Password.";
+  //         } else if (input.confirmpassword && value !== input.confirmpassword) {
+  //           stateObj["confirmpassword"] = "Password and Confirm Password does not match.";
+  //         } else {
+  //           stateObj["confirmPassword"] = input.confirmpassword ? "" : error.confirmpassword;
+  //         }
+  //         break;
+
+  //       case "confirmpassword":
+  //         if (!value) {
+  //           stateObj[name] = "Please enter Confirm Password.";
+  //         } else if (input.password && value !== input.password) {
+  //           stateObj[name] = "Password and Confirm Password does not match.";
+  //         }
+  //         break;
+
+  //       default:
+  //         break;
+  //     }
+
+  //     return stateObj;
+  //   });
+  // }
+  
+  const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
+
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -109,7 +207,7 @@ console.log(str);
         .then((result) => {
 
           result.json().then((resp) => {
-            
+
             toast(resp.message);
             if (resp.status === "error") {
 
@@ -139,80 +237,49 @@ console.log(str);
 
   return (
     <>
-      <Formik
-      validationSchema={schema}
-      // onSubmit={console.log}
-      initialValues={{
-        fname: '',
-        lname: '',
-        state: '',
-        city: '',
-        email: '',
-        confirmemail: '',
-        password:'',
-        confirmPassword:'',
-        terms: false
-       
-
-      }}
-    >
-     {({
-        handleSubmit,
-        handleChange,
-        handleBlur,
-        values,
-        touched,
-        isValid,
-        errors,
-      }) => (
       <div className="app">
         <br />
         <br />
         <ToastContainer />
+
         <div className="login-form">
-          <p className="title text-center p-4 mb-4 fs-4">BOGOmazing App Sign Up Form</p>
-          <Container>  
-            <p className="text-center">BOGOmazing Is Only A $29.95 Per Month Subscription Which Will Save You $500 - $1,000 Per Month<br /> If Used Just Once Per Day.  Save More With A Party Of 4 Or 6 People.  Sign Up Now To Start Saving Immediately.<br /> You Can Cancel Any Time.
-            </p>
-       
-            {/* <Form noValidate validated={validated} onSubmit={handleSubmit1}> */}
-            <Form noValidate validated={validated} onSubmit={handleSubmit1}>
+          <div className="title text-center p-4 mb-4 fs-4">BOGOmazing App Sign Up Form</div>
+          <div className='container p-4'>
+            <p className="text-center">Please Create Your BOGOmazing App Account & Then Download The BOGOmazing App From<br />The Playstore To Log Into Your Account And Begin Saving Immediately!!!</p>
+
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>First Name</Form.Label>
-                  <Form.Control type="text" name="fname" placeholder="First Name" value={values.fname}
-             onChange={handleChange}
-              isInvalid={!!errors.fname}/>
-                  <Form.Control.Feedback type="invalid"> {errors.fname}</Form.Control.Feedback>
+                  <Form.Control required type="text" name="fname" placeholder="First Name" />
+                  <Form.Control.Feedback type="invalid">Please Enter First Name</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridPassword">
                   <Form.Label>Last Name</Form.Label>
-                  <Form.Control type="text" name="lname" placeholder="Last Name" value={values.lname}
-              onChange={handleChange}
-              isInvalid={!!errors.lname}/>
-                  <Form.Control.Feedback type="invalid"> {errors.lname}</Form.Control.Feedback>
+                  <Form.Control required type="text" name="lname" placeholder="Last Name" />
+                  <Form.Control.Feedback type="invalid">Please Enter Last Name</Form.Control.Feedback>
                 </Form.Group>
               </Row>
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridState">
                   <Form.Label>State</Form.Label>
-                  <Form.Select type="select" name="state" onChange={handleChange} onBlur={handleStateChange} value={values.state} isInvalid={!!errors.state}>
+                  <Form.Select required type="select" name="state" onChange={handleChange} >
                     <option value="">Choose...</option>
                     {
                       users.map((item, i) =>
-                        <option value={item.stateid}>{item.stateName}</option>
+                        <option value={item.state_code}>{item.stateName}</option>
 
                       )}
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">
-                  {errors.state}
+                    Please Select State
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridCity">
                   <Form.Label>City</Form.Label>
-                  <Form.Select type="select" name="city" value={values.city} onChange={handleChange}  isInvalid={!!errors.city}>
+                  <Form.Select required type="select" name="city">
                     <option value="">Choose...</option>
                     {city.map((item, i) =>
                       <option value={item.city_code}>{item.CityName}</option>
@@ -221,25 +288,24 @@ console.log(str);
 
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">
-                  {errors.city}
+                    Please Select City
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control type="text" name="email" placeholder="Email" onChange={handleChange} value={values.email} isInvalid={!!errors.email}/>
+                  <Form.Control required type="text" name="email" placeholder="Email" />
                   <Form.Control.Feedback type="invalid">
                     {/* {error.email ? <span className='err'>{error.email}</span> : "Please Enter Email"} */}
-                    {errors.email}
+
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridPassword">
                   <Form.Label>Confirm Email</Form.Label>
-                  <Form.Control type="text" name="confirmemail" placeholder="Confirm Email" onChange={handleChange} value={values.confirmemail} isInvalid={!!errors.confirmemail}/>
-                  <Form.Control.Feedback type="invalid">
-                  {errors.confirmemail}
+                  <Form.Control required type="text" name="confirmemail" placeholder="Confirm Email" />
+                  <Form.Control.Feedback>
                     {/* {error.confirmemail ? <span className='err'>{error.confirmemail}</span> : "Please Enter Confirm Email"} */}
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -247,20 +313,31 @@ console.log(str);
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control required type="password" name="password" placeholder="Password" onChange={handleChange}  value={values.password} isInvalid={!!errors.password}/>
-                  <Form.Control.Feedback type="invalid" >
-                  {errors.password}
+                  <Form.Control required type="password" name="password" placeholder="Password" onChange={handlePasswordChange} onKeyUp={handleValidation} value={passwordInput.password} />
+                  {(() => { 
+if(passwordError) {
+                  
+                  <Form.Control.Feedback type="invalid" style={{display:"block"}}>
+                
+                  <p className="text-danger">{passwordError}</p>
                     {/* {error.password ? <span className='err'>{error.password}</span> : "Please Enter Password"} */}
                   </Form.Control.Feedback>
+}else{
+                  <Form.Control.Feedback type="invalid">
+               
+               Please Select City
+                  </Form.Control.Feedback>
+                  }
 
+})()}
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>Confirm Password</Form.Label>
                  
-                  <Form.Control type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange}  value={values.confirmPassword} isInvalid={!!errors.confirmPassword}/>
+                  <Form.Control type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handlePasswordChange} onKeyUp={handleValidation} value={passwordInput.confirmPassword} />
                   <Form.Control.Feedback type="invalid">
-                  {errors.confirmPassword}
+                  <p className="text-danger">{confirmPasswordError}</p>
                     {/* {error.confirmpassword ? <span className='err'>{error.password}</span> : "Please Enter Confirm Password"} */}
                   </Form.Control.Feedback>
 
@@ -276,6 +353,7 @@ console.log(str);
                         label="Male"
                         name="gender"
                         type={type}
+                        checked="checked"
                         value="Male"
                         id={`inline-${type}-1`}
 
@@ -306,14 +384,13 @@ console.log(str);
                 <Form.Group as={Col} controlId="formGridPassword">
                   <Form.Label>DOB</Form.Label>
                   {/* <DatePicker className="form-control" name="DOB" selected={startDate} /> */}
-                  {/*<Form.Control type="date" name="dob" placeholder="Date of Birth"  />*/}
-                  <CustomDatePicker selectedDate={dob} onChange={handleDateChange} />
+                  <Form.Control type="date" name="dob" placeholder="Date of Birth" />
                 </Form.Group>
               </Row>
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>Phone</Form.Label>
-                  <InputMask className='form-control'
+                  <InputMask required className='form-control'
                     mask='999-999-9999'
                     placeholder="____-____-_____" name="phoneno">
                   </InputMask>
@@ -329,11 +406,8 @@ console.log(str);
               <Form.Group className="mb-3">
                 <Form.Check
                   required
-                  name="terms"
                   label="I Wish To Receive Bonus Offers"
-                  onChange={handleChange}
-                  isInvalid={!!errors.terms}
-                  feedback={errors.terms}
+                  feedback="Please Select"
                   feedbackType="invalid"
                 />
               </Form.Group>
@@ -344,16 +418,14 @@ console.log(str);
                 <Button className='rounded-pill' size="lg" variant="danger" type="submit">
                   Proceed to Confirmation Screen
                 </Button>
-                </div>
+              </div>
             </Form>
-            <br />
-            </Container>
-            </div>
-            <br />
-              <br />
-            </div>
-      )}
-      </Formik>
+          </div>
+        </div>
+        <br />
+        <br />
+      </div>
+
     </>
   );
 }
